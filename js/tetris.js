@@ -8,7 +8,10 @@ const restartButton = document.querySelector(".game-text > button");
 const gameStarButton = document.querySelector(".game-start");
 const audioTag = document.querySelector(".tetris-music");
 const muteButton = document.querySelector(".music-mute");
+const bestScore = document.querySelector(".best-score > span");
 
+
+console.log()
 //Setting
 const GAME_ROWS = 20;
 const GAME_COLS = 10;
@@ -19,17 +22,21 @@ let duration = 500;
 let dowInterval;
 let tempMovingItem;
 
+const BEST_SCORE = "bestScroe";
 
 const movingItem = {
     type: "",
     direction: 0,
     top: 0,
-    left: 3
+    left: 0
 }
 
+init()
+
+//functins
 function gameStart() {
-    init();
     musicOn();
+    generateNewBlock();
     gameStarButton.style.display = "none";
 }
 
@@ -41,15 +48,12 @@ function musicOn() {
     audioTag.play();
 }
 
-//functins
 function init() {
-    //스프레드 오퍼레이터는 안의 값을 복사해서 가져온다는 느낌 중요!
-    // 객체이기 때문에 그 값을 가르키는 전체가 변경되는것이 아닌 그 값만 딱 가져와서 사용한다 너무 중요
     tempMovingItem = {...movingItem};
     for(let i=0; i<GAME_ROWS; i++) {
         prependNewLine();
     }
-    generateNewBlock()
+    bestScore.innerText = localStorage.getItem(BEST_SCORE);
 }
 
 function prependNewLine() {
@@ -66,19 +70,17 @@ function prependNewLine() {
 }
 
 function renderBlocks(moveType = "") {
-    //디스트럭처링을 사용해서 변수처럼 사용할 수 있게
     const {type, direction, top, left} = tempMovingItem;
     const movingBlocks = document.querySelectorAll(".moving");
     movingBlocks.forEach(moving => {
         moving.classList.remove(type, "moving")
     })
     BLOCKS[type][direction].some(block => {
-        //forEach는 반복문을 중간에 중지할 수 없다. some을 사용하면 반복문을 중간에 중지?할 수 있다.
         const x = block[0] + left;
         const y = block[1] + top;
-        //childNodes 는 배열처럼 배열 메소드를 사용할 수 있는 형태로 반환이 되기 때문에 사용한다.
         const target = playground.childNodes[y] ? playground.childNodes[y].childNodes[0].childNodes[x] : null;
         const isAvailable = checkEmpty(target);
+        
         if(isAvailable) {
             target.classList.add(type, "moving");
         } else {
@@ -86,6 +88,7 @@ function renderBlocks(moveType = "") {
             if(moveType === "retry") {
                 clearInterval(dowInterval);
                 showGameoverText();
+                setBestScore(score);
             }
             setTimeout(() => {
                 renderBlocks("retry");
@@ -101,6 +104,14 @@ function renderBlocks(moveType = "") {
     movingItem.direction = direction;
 }
 
+function setBestScore(score) {
+    let currentScore = localStorage.getItem(BEST_SCORE);
+
+    if(currentScore < score) {
+        localStorage.setItem(BEST_SCORE, score);
+    }
+}
+
 function seizeBlock() {
     const movingBlocks = document.querySelectorAll(".moving");
     movingBlocks.forEach(moving => {
@@ -111,8 +122,8 @@ function seizeBlock() {
 }
 
 function checkMatch() {
-
     const childNodes = playground.childNodes;
+
     childNodes.forEach(child => {
         let matched = true;
         child.children[0].childNodes.forEach(li => {
@@ -127,7 +138,6 @@ function checkMatch() {
             scoreDisplay.innerText = score;
         }
     })
-
     generateNewBlock();
 }
 
@@ -175,21 +185,21 @@ function dropBlock() {
 
 function showGameoverText() {
     gameText.style.display = "flex"
+    audioTag.currentTime = 0;
     musicMute();
 }
 
 //event handling
 document.addEventListener("keydown", e => {
-    //각각의 키는 고유한 키 코드가 존재한다.
-    if(e.keyCode === 39) {
+    if(e.key === "ArrowRight") {
         moveBlock("left", 1);
-    } else if(e.keyCode === 37) {
+    } else if(e.key === "ArrowLeft") {
         moveBlock("left", -1);
-    } else if(e.keyCode === 40) {
+    } else if(e.key === "ArrowDown") {
         moveBlock("top", 1);
-    } else if(e.keyCode === 38) {
+    } else if(e.key === "ArrowUp") {
         changeDirection();
-    } else if(e.keyCode === 32) {
+    } else if(e.key === " ") {
         dropBlock();
     }
 });
