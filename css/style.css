@@ -12,6 +12,34 @@ body {
     overflow: hidden;
 }
 
+.game-start {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem 2rem;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    background: rgb(76, 160, 7);
+    cursor: pointer;
+    border-radius: 7px;
+    border: 2px solid rgb(46, 46, 46);
+}
+
+.music-mute {
+    padding: .3rem .7rem;
+    font-weight: bold;
+    color: #fff;
+    background: rgb(76, 160, 7);
+    cursor: pointer;
+    border-radius: 7px;
+    border: 2px solid rgb(46, 46, 46);
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
 .game-text {
     display: none;
     justify-content: center;
@@ -29,10 +57,14 @@ body {
 
 .game-text > button {
     padding: 0.5rem 1rem;
+    margin-top: 30px;
+    font-weight: bold;
+    font-size: 20px;
     color: #fff;
-    background: salmon;
-    border: none;
+    background: rgb(76, 160, 7);
     cursor: pointer;
+    border-radius: 7px;
+    border: 2px solid rgb(46, 46, 46);
 }
 
 .score {
@@ -63,25 +95,25 @@ body {
 }
 
 .tree {
-    background: #67c23a;
+    background: #0341AE
 }
 
 .bar {
-    background: salmon;
+    background: #72CB3B;
 }
 
 .zee {
-    background: #e6a23c;
+    background: #FFD500;
 }
 
 .elLeft {
-    background: #8344ad;
+    background: #FF971C;
 }
 
 .elRight {
-    background: #16a085;
+    background: #FF3213;
 }
 
 .square {
-    background: rgb(172, 169, 0);
+    background: #20A2C4;
 }

@@ -5,6 +5,9 @@ const playground = document.querySelector(".playground > ul");
 const gameText = document.querySelector(".game-text");
 const scoreDisplay = document.querySelector(".score");
 const restartButton = document.querySelector(".game-text > button");
+const gameStarButton = document.querySelector(".game-start");
+const audioTag = document.querySelector(".tetris-music");
+const muteButton = document.querySelector(".music-mute");
 
 //Setting
 const GAME_ROWS = 20;
@@ -24,7 +27,19 @@ const movingItem = {
     left: 3
 }
 
-init();
+function gameStart() {
+    init();
+    musicOn();
+    gameStarButton.style.display = "none";
+}
+
+function musicMute() {
+    audioTag.pause();
+}
+
+function musicOn() {
+    audioTag.play();
+}
 
 //functins
 function init() {
@@ -160,28 +175,22 @@ function dropBlock() {
 
 function showGameoverText() {
     gameText.style.display = "flex"
+    musicMute();
 }
 
 //event handling
 document.addEventListener("keydown", e => {
     //각각의 키는 고유한 키 코드가 존재한다.
-    switch(e.keyCode) {
-        case 39:
-            moveBlock("left", 1);
-            break;
-            case 37:
-                moveBlock("left", -1);
-                break;
-            case 40:
-                moveBlock("top", 1);    
-                break;
-            case 38:
-                changeDirection();
-                break;
-            case 32:
-                dropBlock()
-        default:
-            break;    
+    if(e.keyCode === 39) {
+        moveBlock("left", 1);
+    } else if(e.keyCode === 37) {
+        moveBlock("left", -1);
+    } else if(e.keyCode === 40) {
+        moveBlock("top", 1);
+    } else if(e.keyCode === 38) {
+        changeDirection();
+    } else if(e.keyCode === 32) {
+        dropBlock();
     }
 });
 
@@ -189,5 +198,9 @@ restartButton.addEventListener("click", () => {
     playground.innerHTML = "";
     gameText.style.display = "none"
     scoreDisplay.innerText = 0;
+    musicOn();
     init();
 })
+
+gameStarButton.addEventListener("click", gameStart);
+muteButton.addEventListener("click", musicMute);

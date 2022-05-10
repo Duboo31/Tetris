@@ -6,19 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tetris</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="#">
 </head>
 <body>
 
     <div class="wrapper">
+        <button class="game-start">PLAY</button>
+        <button class="music-mute">MUTE</button>
         <div class="game-text">
-            <span>게임종료</span>
-            <button>다시시작</button>
+            <span>GAME OVER</span>
+            <button>RESTAR</button>
         </div>
         <div class="score">0</div>
         <div class="playground">
             <ul></ul>
         </div>
-        <audio loop autoplay src="music/Tetris-Bradinsky-tetis(mp3hamster.net).mp3"></audio>
+        <audio class="tetris-music" loop src="/music/Tetris-Bradinsky.mp3"></audio>
     </div>
 
     <script src="js/tetris.js" type="module"></script>
