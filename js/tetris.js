@@ -10,8 +10,6 @@ const audioTag = document.querySelector(".tetris-music");
 const muteButton = document.querySelector(".music-mute");
 const bestScore = document.querySelector(".best-score > span");
 
-
-console.log()
 //Setting
 const GAME_ROWS = 20;
 const GAME_COLS = 10;
