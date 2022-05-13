@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="#">
+</head>
+<body>
+
+    <div class="wrapper">
+       <!-- 시작버튼 -->
+       <button class="game-start">PLAY</button>
+
+        <div class="gamescreen">
+            <!-- 게임판 -->
+            <div class="playground">
+                <ul></ul>
+            </div>
+
+            <!-- 점수판 -->
+            <div class="score-container">
+                <!-- 베스트 점수 -->
+                <div class="best-score">
+                    <h3>BEST SCORE</h3>
+                    <span>0</span>
+                </div>
+
+                <!-- 현재 스코어 -->
+                <div class="current-score">
+                    <h3>SCORE</h3>
+                    <span class="score">0</span>
+                </div>
+                
+
+                <!-- 뮤트 버튼 -->
+                <button class="music-mute">MUTE</button>
+            </div>
+        </div>
+        
+        <!-- 게임 종료, 재시작 버튼 -->
+        <div class="game-text">
+            <span>GAME OVER</span>
+            <button>RESTART</button>
+        </div>
+        
+        <!-- 사운드 -->
+        <audio class="tetris-music" loop src="music/Tetris-Bradinsky.mp3"></audio>
+    </div>
+
+    <script src="js/tetris.js" type="module"></script>
+</body>
+</html>
